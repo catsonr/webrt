@@ -1,0 +1,189 @@
+#include <iostream>
+
+#include <GLES3/gl3.h>
+#include <EGL/egl.h>
+
+#include <emscripten/emscripten.h>
+#include <emscripten/html5_webgl.h>
+
+//#include "esUtil/esUtil.h"
+
+const int WIDTH = 800;
+const int HEIGHT = 600;
+
+EMSCRIPTEN_WEBGL_CONTEXT_HANDLE context;
+
+typedef struct
+{
+    GLuint programObject;
+} UserData;
+
+// compiles shader given type and source code
+GLuint loadShader(GLenum type, const char *shaderSource)
+{
+    GLuint shader;
+    GLint compiled;
+
+    shader = glCreateShader(type);
+    if (shader == 0)
+    {
+        printf("failed to create shader!\n");
+        return 0;
+    }
+
+    // load source code into shader
+    glShaderSource(shader, 1, &shaderSource, NULL);
+    // compile shader
+    glCompileShader(shader);
+    // check compile status
+    glGetShaderiv(shader, GL_COMPILE_STATUS, &compiled);
+    if (!compiled)
+    {
+        GLint infoLength = 0;
+        glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLength);
+        if (infoLength > 1)
+        {
+            char *infoLog = (char *)malloc(sizeof(char) * infoLength);
+            glGetShaderInfoLog(shader, infoLength, NULL, infoLog);
+
+            printf("error compiling shader:\n%s\n", infoLog);
+
+            free(infoLog);
+        }
+
+        glDeleteShader(shader);
+        return 0;
+    }
+
+    return shader;
+}
+
+UserData *init()
+{
+    UserData* userData = new UserData();
+
+    char VERTEXSHADERSOURCECODE[] =
+        "#version 300 es                          \n"
+        "layout(location = 0) in vec4 vPosition;  \n"
+        "void main()                              \n"
+        "{                                        \n"
+        "   gl_Position = vPosition;              \n"
+        "}                                        \n";
+
+    char FRAGMENTSHADERSOURCECODE[] =
+        "#version 300 es                              \n"
+        "precision mediump float;                     \n"
+        "out vec4 fragColor;                          \n"
+        "void main()                                  \n"
+        "{                                            \n"
+        "   fragColor = vec4 ( 1.0, 0.0, 0.0, 1.0 );  \n"
+        "}                                            \n";
+
+    GLuint vertexShader;
+    GLuint fragmentShader;
+    GLuint programObject;
+    GLint linked;
+
+    vertexShader = loadShader(GL_VERTEX_SHADER, VERTEXSHADERSOURCECODE);
+    fragmentShader = loadShader(GL_FRAGMENT_SHADER, FRAGMENTSHADERSOURCECODE);
+    
+    programObject = glCreateProgram();
+    if(programObject == 0)
+    {
+        return NULL;
+    }
+    
+    glAttachShader(programObject, vertexShader);
+    glAttachShader(programObject, fragmentShader);
+
+    glLinkProgram(programObject);
+
+    // check link status
+    glGetProgramiv(programObject, GL_LINK_STATUS, &linked);
+    if (!linked)
+    {
+        GLint infoLength = 0;
+
+        glGetProgramiv(programObject, GL_INFO_LOG_LENGTH, &infoLength);
+        if (infoLength > 1)
+        {
+            char *infoLog = (char *)malloc(sizeof(char) * infoLength);
+            glGetProgramInfoLog(programObject, infoLength, NULL, infoLog);
+            printf("error linking program:\n%s\n", infoLog);
+
+            free(infoLog);
+        }
+        
+        glDeleteProgram(programObject);
+        return NULL;
+    }
+    
+    userData->programObject = programObject;
+
+    return userData;
+}
+
+void draw()
+{
+    GLfloat vPosition[] = {
+        0.0f, 0.5f, 0.0f,
+        -0.5f, -0.5f, 0.0f,
+        0.5f, -0.5f, 0.0f,
+    };
+    
+    GLuint vbo;
+    glGenBuffers(1, &vbo);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vPosition), vPosition, GL_STATIC_DRAW);
+
+    UserData* userData = init();
+    
+    glUseProgram(userData->programObject);
+    
+    glClearColor(0.0f, 0.2f, 0.5f, 1.0f);
+    glViewport(0, 0, WIDTH, HEIGHT);
+    glClear(GL_COLOR_BUFFER_BIT);
+    glUseProgram(userData->programObject);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+    glEnableVertexAttribArray(0);
+
+    glDrawArrays(GL_TRIANGLES, 0, 3);
+    
+    glDeleteBuffers(1, &vbo);
+    free(userData);
+}
+
+int main()
+{
+    // Set up context attributes for WebGL 2 (OpenGL ES 3)
+    EmscriptenWebGLContextAttributes attr;
+    emscripten_webgl_init_context_attributes(&attr);
+    attr.alpha = false;
+    attr.depth = true;
+    attr.stencil = false;
+    attr.antialias = true;
+    attr.majorVersion = 2; // WebGL 2 corresponds to OpenGL ES 3.0
+    attr.minorVersion = 0;
+
+    // gets context of canvas (initlaizes webgl)
+    context = emscripten_webgl_create_context("#canvas", &attr);
+    if (context <= 0)
+    {
+        printf("Failed to create webgl2 context\n");
+        return 1;
+    }
+    emscripten_webgl_make_context_current(context);
+    printf("HTML canvas webgl2 context created!\n");
+
+    // prints gl version
+    printf("GL_VERSION = %s\n", glGetString(GL_VERSION));
+
+    // starts main render loop
+    //emscripten_set_main_loop(draw, 0, 1);
+    draw();
+    
+    printf("draw loop exited\n");
+
+    return 0;
+}
