@@ -1,3 +1,6 @@
+# default target
+.PHONY: clean build 
+
 # folder build stuff goes into
 BUILD_DIR := build
 
@@ -20,7 +23,6 @@ FLAGS := -O3 --shell-file ${EMCC_HTML_FILE} -sMAX_WEBGL_VERSION=2
 # ---------------------------------------------------------------
 
 # compiles c++ code
-# default target since it's first
 build:
 	mkdir -p ${BUILD_DIR}
 	emcc $(SOURCES) -o $(TARGET) ${FLAGS}
