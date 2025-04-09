@@ -1,7 +1,7 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#include "glm/glm.hpp"
+#include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "globals.h"
@@ -10,10 +10,12 @@ class Camera {
     public:
         Camera();
         
+        // virtual functions
+        virtual float generateRay() const = 0;
+        
         // getters
         glm::mat4 getViewMatrix() const;
         glm::mat4 getProjMatrix() const;
-
         glm::vec3 getPosition() const;
         
         // setters 
@@ -25,8 +27,8 @@ class Camera {
         glm::vec3 m_up;
         float m_fov;
         float m_aspectRatio;
-        float m_zNear;
-        float m_zFar;
+        float m_clipNear;
+        float m_clipFar;
         
         mutable glm::mat4 m_viewMatrix;
         mutable glm::mat4 m_projMatrix;

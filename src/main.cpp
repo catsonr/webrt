@@ -1,31 +1,10 @@
 #include <emscripten.h>
-#include <wasm_simd128.h>
+//#include <wasm_simd128.h>
 
 #include <SDL/SDL.h>
 
 #include <stdio.h>
 #include "globals.h"
-#include "Camera.h"
-
-void simdTest() 
-{
-    printf("simd test\n");
-
-    float v1[4] = { 0.2f, 0.2f, 0.3f, 1.0f };
-    float v2[4] = { 0.2f, 0.1f, 0.0f, 0.0f };
-    float out[4] = { 0 };
-    
-    v128_t v1_simd = wasm_v128_load(v1);
-    v128_t v2_simd = wasm_v128_load(v2);
-    
-    v128_t sum_simd = wasm_f32x4_add(v1_simd, v2_simd);
-    
-    wasm_v128_store(&out, sum_simd);
-    
-    printf("after addition: %f %f %f %f\n", out[0], out[1], out[2], out[3]);
-    
-    //fflush(stdout);
-}
 
 int main(int argc, char **argv)
 {
@@ -52,8 +31,6 @@ int main(int argc, char **argv)
     SDL_Flip(screen);
 
     SDL_Quit();
-    
-    Camera* c = new Camera();
 
     return 0;
 }

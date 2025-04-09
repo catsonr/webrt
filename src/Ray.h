@@ -1,0 +1,21 @@
+#ifndef RAY_H
+#define RAY_H
+
+#include <glm/glm.hpp>
+#include "Point.h"
+
+class Ray
+{
+    public:
+        Ray(Point o, Vector d);
+        
+        Point operator()(float t) const;
+        
+        mutable float t_min, t_max;
+
+    private:
+        Point o;
+        Vector d;
+};
+
+#endif
