@@ -1,7 +1,6 @@
 #ifndef RAY_H
 #define RAY_H
 
-#include <glm/glm.hpp>
 #include "Point.h"
 
 class Ray

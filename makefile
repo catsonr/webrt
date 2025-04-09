@@ -19,7 +19,7 @@ HEADERS := $(wildcard src/*.h)
 # --shell-file => the html page emscripten compiles to
 # -s => compile for webgl2 
 #  -m => tells emscripten to use SIMD128
-FLAGS := -O3 --shell-file ${EMCC_HTML_FILE} -sMAX_WEBGL_VERSION=2 -msimd128 -I./lib/glm
+FLAGS := -O3 --shell-file ${EMCC_HTML_FILE} -sMAX_WEBGL_VERSION=2
 
 # ---------------------------------------------------------------
 
