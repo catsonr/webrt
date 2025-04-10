@@ -5,5 +5,7 @@ const int CANVAS_WIDTH = 800;
 const int CANVAS_HEIGHT = 600;
 
 const float PI = 3.14159265358979323846f;
+const float ONE_OVER_PI = 0.31830988618379067154f;
+const float ONE_OVER_TWOPI = 0.15915494309189533577f;
 
 #endif

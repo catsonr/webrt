@@ -7,9 +7,7 @@ Ray::Ray(Point o, Vector d) :
     d(d),
     t_min(RAY_EPSILON),
     t_max(INFINITY)
-{
-
-}
+{}
 
 Point Ray::operator()(float t) const
 {

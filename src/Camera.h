@@ -10,16 +10,7 @@ class Camera
 public:
     Camera();
 
-    // virtual functions
     virtual float generateRay() const = 0;
-
-    // getters
-    // glm::mat4 getViewMatrix() const;
-    // glm::mat4 getProjMatrix() const;
-    Point getPosition() const;
-
-    // setters
-    void setPosition(Point &p);
 
 private:
     Point position;
@@ -29,9 +20,6 @@ private:
     float aspectRatio;
     float clipNear;
     float clipFar;
-
-    // mutable glm::mat4 viewMatrix;
-    // mutable glm::mat4 projMatrix;
 
     void updateMatrices() const;
 };

@@ -6,6 +6,11 @@ Vector::Vector(float x, float y, float z) :
     y(y),
     z(z)
 {}
+Vector::Vector(const Normal& n) :
+    x(n.x),
+    y(n.y),
+    z(n.z)
+{}
 
 float Vector::lengthSquared() const
 {

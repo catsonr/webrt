@@ -8,24 +8,4 @@ Camera::Camera() :
     aspectRatio((float)CANVAS_WIDTH / (float)CANVAS_HEIGHT),
     clipNear(0.1f),
     clipFar(100.0f)
-{
-    // initialize matrices
-}
-
-// getters
-Point Camera::getPosition() const
-{
-    return position;
-}
-
-// setters
-void Camera::setPosition(Point& p) 
-{
-    position = p;
-}
-
-// private functions
-void Camera::updateMatrices() const 
-{
-
-}
+{}

@@ -1,10 +1,11 @@
 #include <emscripten.h>
-//#include <wasm_simd128.h>
-
 #include <SDL/SDL.h>
 
 #include <stdio.h>
+
 #include "globals.h"
+#include "Point.h"
+#include "Transform.h"
 
 int main(int argc, char **argv)
 {
@@ -19,7 +20,7 @@ int main(int argc, char **argv)
         {
             const float r = (float)i / CANVAS_WIDTH;
             const float g = (float)j / CANVAS_HEIGHT;
-            const float b = 1.0f;
+            const float b = 0.5f;
             const float a = 1.0f;
 
             *((Uint32*)screen->pixels + j * CANVAS_WIDTH + i) = SDL_MapRGBA(screen->format, r*255, g*255, b*255, a*255);
@@ -31,6 +32,23 @@ int main(int argc, char **argv)
     SDL_Flip(screen);
 
     SDL_Quit();
+    
+    Point p1(0.0, 0.1, 0.2);
+    Point p2(0.1, 0.2, 0.3);
+    
+    Vector v = p1 - p2;
+    
+    printf("%f %f %f\n", v.x, v.y, v.z);
+    
+    Normal n(v);
+    
+    printf("%f %f %f\n", n.x, n.y, n.z);
+    
+    Transform t;
+    
+    t(v);
+
+    printf("%f %f %f\n", v.x, v.y, v.z);
 
     return 0;
 }
