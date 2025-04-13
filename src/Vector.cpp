@@ -14,7 +14,7 @@ Vector::Vector(const Normal& n) :
 
 float Vector::lengthSquared() const
 {
-    return x * x + y + y + z + z;
+    return x * x + y * y + z * z;
 }
 float Vector::length() const
 {

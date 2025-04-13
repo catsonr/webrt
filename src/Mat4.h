@@ -1,7 +1,7 @@
 #ifndef MAT4_H
 #define MAT4_H
 
-#include <memory.h>
+#include <memory>
 #include <iostream>
 
 #include <cmath>
@@ -29,6 +29,8 @@ public:
     std::shared_ptr<Mat4> transpose() const;
     std::shared_ptr<Mat4> multiply(const std::shared_ptr<Mat4> m1, const std::shared_ptr<Mat4> m2) const;
     std::shared_ptr<Mat4> inverse() const;
+    
+    void print() const;
 };
 
 #endif

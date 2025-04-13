@@ -4,8 +4,50 @@
 #include <stdio.h>
 
 #include "globals.h"
+
 #include "Point.h"
+#include "Vector.h"
+#include "Normal.h"
 #include "Transform.h"
+
+//#include "bruh.h"
+
+bool mathExam()
+{
+    Vector v1(1, 2, 3);
+    Vector v2(10, 10, 10);
+    
+    v1 = v1 + v2;
+    v1 += v2;
+    
+    printf("%f %f %f\n", v1.x, v1.y, v1.z);
+    
+    Normal n(v1);
+    Normal normalized = normalize(n);
+    
+    printf("%f %f %f\n", normalized.x, normalized.y, normalized.z);
+    
+    Vector vnorm = normalize(v2);
+    
+    printf("%f %f %f\n", vnorm.x, vnorm.y, vnorm.z);
+    
+    Transform T;
+    
+    T.m->print();
+    T = T.translate(Vector(1, 2, 3));
+    
+    T.m->print();
+    
+    T.mInv->print();
+    
+    Transform lookat;
+    lookat = lookat.lookAt(Point(1.5, 3, 5), Point(-12, 4, 2), Vector(0, 1, 0));
+    
+    printf("lookat:\n");
+    lookat.m->print();
+    
+    return true;
+}
 
 int main(int argc, char **argv)
 {
@@ -33,22 +75,7 @@ int main(int argc, char **argv)
 
     SDL_Quit();
     
-    Point p1(0.0, 0.1, 0.2);
-    Point p2(0.1, 0.2, 0.3);
-    
-    Vector v = p1 - p2;
-    
-    printf("%f %f %f\n", v.x, v.y, v.z);
-    
-    Normal n(v);
-    
-    printf("%f %f %f\n", n.x, n.y, n.z);
-    
-    Transform t;
-    
-    t(v);
-
-    printf("%f %f %f\n", v.x, v.y, v.z);
+    mathExam();
 
     return 0;
 }

@@ -7,7 +7,7 @@ cmake_minimum_required(VERSION 4.0)
 project(webrt CXX)
 
 if(NOT CMAKE_CXX_COMPILER MATCHES "em\\+\\+")
-  message(WARNING "CMAKE_CXX_COMPILER is not em++, please run: emcmake cmake -B build")
+  #message(WARNING "CMAKE_CXX_COMPILER is not em++, please run: emcmake cmake -B build")
 endif()
 
 file(GLOB SOURCES "src/*.cpp")

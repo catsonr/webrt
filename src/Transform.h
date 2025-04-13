@@ -4,6 +4,7 @@
 #include "Mat4.h"
 #include "Vector.h"
 #include "Point.h"
+#include "Ray.h"
 
 class Transform
 {
@@ -23,6 +24,8 @@ public:
     Transform rotate(const Vector& axis, float angle);
     
     Transform lookAt(const Point& pos, const Point& lookingAt, const Vector& up);
+    
+    void print() const;
     
     // transform inline functions
     inline Point operator()(const Point& p) const // transforming a point
@@ -62,6 +65,20 @@ public:
         vtrans->x = m->m[0][0] * v.x + m->m[0][1] * v.y + m->m[0][2] * v.z + m->m[0][3];
         vtrans->y = m->m[1][0] * v.x + m->m[1][1] * v.y + m->m[1][2] * v.z + m->m[1][3];
         vtrans->z = m->m[2][0] * v.x + m->m[2][1] * v.y + m->m[2][2] * v.z + m->m[2][3];
+    }
+    inline Normal operator()(const Normal& n) const // transforming a normal 
+    {
+        return Normal(
+                mInv->m[0][0]*n.x + mInv->m[1][0]*n.y + mInv->m[2][0]*n.z,
+                mInv->m[0][1]*n.x + mInv->m[1][1]*n.y + mInv->m[2][1]*n.z,
+                mInv->m[0][2]*n.x + mInv->m[1][2]*n.y + mInv->m[2][2]*n.z
+        );
+    }
+    inline void operator()(const Normal &n, Normal *ntrans) const // translating a normal in place
+    {
+        ntrans->x = mInv->m[0][0] * n.x + mInv->m[0][1] * n.y + mInv->m[0][2] * n.z + mInv->m[0][3];
+        ntrans->y = mInv->m[1][0] * n.x + mInv->m[1][1] * n.y + mInv->m[1][2] * n.z + mInv->m[1][3];
+        ntrans->z = mInv->m[2][0] * n.x + mInv->m[2][1] * n.y + mInv->m[2][2] * n.z + mInv->m[2][3];
     }
 };
 

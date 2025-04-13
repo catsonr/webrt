@@ -12,7 +12,6 @@ class Ray
         
         mutable float t_min, t_max;
 
-    private:
         Point o;
         Vector d;
 };

@@ -75,7 +75,7 @@ Transform Transform::lookAt(const Point &pos, const Point &lookingAt, const Vect
     _m[3][3] = 1;
     
     // initialize first three columns
-    Vector dir = normalize(lookingAt - pos);
+    Vector dir = -normalize(lookingAt - pos); // negative defines "forward" as down -z
     Vector right = cross(dir, normalize(up));
     Vector newUp = cross(right, dir);
     _m[0][0] = right.x;
@@ -94,4 +94,8 @@ Transform Transform::lookAt(const Point &pos, const Point &lookingAt, const Vect
     std::shared_ptr<Mat4> camToWorld = std::make_shared<Mat4>(_m);
     
     return Transform(camToWorld->inverse(), camToWorld);
+}
+
+void Transform::print() const
+{
 }
