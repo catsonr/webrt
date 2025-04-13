@@ -6,6 +6,7 @@
 class Ray
 {
     public:
+        Ray();
         Ray(Point o, Vector d);
         
         Point operator()(float t) const;

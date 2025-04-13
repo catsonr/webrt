@@ -11,6 +11,7 @@ class Normal
 public:
     float x, y, z;
     
+    Normal();
     Normal(float x, float y, float z);
     explicit Normal(const Vector& v);
 

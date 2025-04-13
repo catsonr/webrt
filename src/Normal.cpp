@@ -1,5 +1,10 @@
 #include "Normal.h"
 
+Normal::Normal() :
+    x(0.0f),
+    y(0.0f),
+    z(0.0f)
+{}
 Normal::Normal(float x, float y, float z) :
     x(x),
     y(y),

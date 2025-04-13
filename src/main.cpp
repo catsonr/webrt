@@ -9,11 +9,12 @@
 #include "Vector.h"
 #include "Normal.h"
 #include "Transform.h"
-
-//#include "bruh.h"
+#include "Bbox.h"
 
 bool mathExam()
 {
+    Bbox box;
+
     Vector v1(1, 2, 3);
     Vector v2(10, 10, 10);
     
@@ -52,20 +53,20 @@ bool mathExam()
 int main(int argc, char **argv)
 {
     SDL_Init(SDL_INIT_VIDEO);
-    SDL_Surface* screen = SDL_SetVideoMode(CANVAS_WIDTH, CANVAS_HEIGHT, 0, SDL_SWSURFACE);
+    SDL_Surface* screen = SDL_SetVideoMode(rt::CANVAS_WIDTH, rt::CANVAS_HEIGHT, 0, SDL_SWSURFACE);
 
     if (SDL_MUSTLOCK(screen)) SDL_LockSurface(screen);
 
-    for (int i = 0; i < CANVAS_WIDTH; i++)
+    for (int i = 0; i < rt::CANVAS_WIDTH; i++)
     {
-        for (int j = 0; j < CANVAS_HEIGHT; j++)
+        for (int j = 0; j < rt::CANVAS_HEIGHT; j++)
         {
-            const float r = (float)i / CANVAS_WIDTH;
-            const float g = (float)j / CANVAS_HEIGHT;
+            const float r = (float)i / rt::CANVAS_WIDTH;
+            const float g = (float)j / rt::CANVAS_HEIGHT;
             const float b = 0.5f;
             const float a = 1.0f;
 
-            *((Uint32*)screen->pixels + j * CANVAS_WIDTH + i) = SDL_MapRGBA(screen->format, r*255, g*255, b*255, a*255);
+            *((Uint32*)screen->pixels + j * rt::CANVAS_WIDTH + i) = SDL_MapRGBA(screen->format, r*255, g*255, b*255, a*255);
         }
     }
 
@@ -75,7 +76,7 @@ int main(int argc, char **argv)
 
     SDL_Quit();
     
-    mathExam();
+    fflush(stdout);
 
     return 0;
 }
