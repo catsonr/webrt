@@ -1,0 +1,8 @@
+{
+    "cmake.configureArgs": [
+        "-DCMAKE_TOOLCHAIN_FILE=${env:EMSDK}/upstream/emscripten/cmake/Modules/Platform/Emscripten.cmake"
+    ],
+    "C_Cpp.default.compileCommands": [
+        "/build/compile_commands.json"
+    ]
+}
