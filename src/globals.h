@@ -13,6 +13,8 @@ namespace rt
     constexpr float TWOPI = 6.283185482025146484375f;
     constexpr float ONE_OVER_PI = 0.31830988618379067154f;
     constexpr float ONE_OVER_TWOPI = 0.15915494309189533577f;
+    
+    constexpr int SPECTRUM_COLORSAMPLES = 3;
 
     // GLOBAL INLINES
     // solves quadratic equation given A, B, C, and t0 t1 variables

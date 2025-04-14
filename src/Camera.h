@@ -12,7 +12,7 @@ public:
 
     virtual float generateRay() const = 0;
 
-private:
+protected:
     Point position;
     Point target;
     Vector up;
