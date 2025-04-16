@@ -1,3 +1,10 @@
+/*
+    Reference is basically just a simplier implimentation of shared_ptr. it's described and used in pbrt
+    so it has been implimented here, but no where in webrt is it used
+
+    this file will most likely be deleted later
+*/
+
 #ifndef REFERENCE_H
 #define REFERENCE_H
 

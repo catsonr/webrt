@@ -1,7 +1,7 @@
 #include "Spectrum.h"
 
 // constructors
-Spectrum::Spectrum(float v = 0.0f)
+Spectrum::Spectrum(float v)
 {
     for(int i = 0; i < rt::SPECTRUM_COLORSAMPLES; i++)
         c[i] = v;
@@ -76,7 +76,7 @@ Spectrum Spectrum::pow(const Spectrum& e) const
     return ret;
 }
 
-Spectrum Spectrum::clamp(float min = 0.0f, float max = INFINITY) const
+Spectrum Spectrum::clamp(float min, float max) const
 {
     Spectrum ret;
 
