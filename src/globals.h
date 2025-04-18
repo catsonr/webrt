@@ -3,6 +3,8 @@
 
 #include <algorithm>
 
+#include "Vector.h"
+
 namespace rt
 {
     // GLOBAL VARIABLES
@@ -62,6 +64,35 @@ namespace rt
     constexpr float degrees(float radians)
     {
         return (180.0f / PI) * radians;
+    }
+    
+    // returns a (unit) vector pointed at a point on a sphere
+    inline Vector sphericalDirection(float sinTheta, float cosTheta, float phi)
+    {
+        return Vector(
+                sinTheta * cosf(phi),
+                sinTheta * sinf(phi),
+                cosTheta
+        );
+    }
+    inline Vector sphericalDirection(float sinTheta, float cosTheta, float phi, const Vector& x, const Vector& y, const Vector& z)
+    {
+        return x * sinTheta * cosf(phi) +
+        y * sinTheta * sinf(phi) +
+        z * cosTheta;
+    }
+    
+    // returns the theta or phi component of Vector v in spherical coordinates
+    // assumes v is normalized
+    inline float sphericalTheta(const Vector& v)
+    {
+        return acosf(v.z);
+    }
+    inline float sphericalPhi(const Vector& v)
+    {
+        float p = atan2f(v.y, v.x);
+        
+        return (p < 0.0f) ? p + TWOPI : p;
     }
 } // rt
 

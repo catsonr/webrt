@@ -33,6 +33,7 @@ bool Bbox::overlaps(const Bbox& box) const
     
     return x && y && z;
 }
+
 bool Bbox::containsPoint(const Point& p) const
 {
     return (
@@ -41,10 +42,38 @@ bool Bbox::containsPoint(const Point& p) const
         p.z >= pMin.z && p.z <= pMax.z
     );
 }
+
+bool Bbox::intersectP(const Ray& ray, float* t_hit0, float* t_hit1) const
+{
+    float t0 = ray.t_min;
+    float t1 = ray.t_max;
+    
+    // test intersection against all xyz planes of the bbox
+    for(int i = 0; i < 3; i++)
+    {
+       float raydirInv = 1.0f / ray.d[i];
+       float tNear = (pMin[i] - ray.o[i]) * raydirInv;
+       float tFar = (pMax[i] - ray.o[i]) * raydirInv;
+       
+       if(tNear > tFar) std::swap(tNear, tFar);
+       
+       t0 = tNear > t0 ? tNear : t0;
+       t1 = tFar  > t1 ? tFar  : t1;
+       
+       if(t0 > t1) return false;
+    }
+    
+    if(t_hit0) *t_hit0 = t0;
+    if(t_hit1) *t_hit1 = t1;
+    
+    return true;
+}
+
 float Bbox::volume() const
 {
     return (pMax.x - pMin.x) * (pMax.y - pMin.y) * (pMax.z - pMin.z);
 }
+
 int Bbox::maxmimumExtent() const
 {
     Vector d = pMax - pMin;
@@ -71,6 +100,7 @@ Bbox Bbox::Union(const Bbox& box, const Point& p)
     
     return newbox;
 }
+
 Bbox Bbox::Union(const Bbox& box1, const Bbox& box2)
 {
     Bbox newbox = box1;

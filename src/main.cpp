@@ -21,7 +21,7 @@ bool mathExam()
     v1 = v1 + v2;
     v1 += v2;
     
-    printf("%f %f %f\n", v1.x, v1.y, v1.z);
+    printf("%f %f %f\n", v1[0], v1[1], v1[2]);
     
     Normal n(v1);
     Normal normalized = normalize(n);
@@ -73,6 +73,8 @@ int main(int argc, char **argv)
     if (SDL_MUSTLOCK(screen)) SDL_UnlockSurface(screen);
 
     SDL_Flip(screen);
+    
+    mathExam();
 
     SDL_Quit();
     

@@ -1,7 +1,10 @@
 #ifndef BBOX_H
 #define BBOX_H
 
+#include <algorithm>
+
 #include "Point.h"
+#include "Ray.h"
 
 class Bbox
 {
@@ -17,6 +20,8 @@ public:
     bool overlaps(const Bbox& b) const;
     // returns if point p is within bbox
     bool containsPoint(const Point& p) const; // called inside() in pbrt
+    // returns true if ray intersects and false if it doesn't. updates t_hit0 and t_hit1 accordingly
+    bool intersectP(const Ray& ray, float* t_hit0, float* t_hit1) const;
     // returns the volume of the bbox
     float volume() const;
     // returns which of the three axes is the longest

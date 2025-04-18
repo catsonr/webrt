@@ -38,3 +38,17 @@ Vector Point::operator-(const Point& p) const
 {
     return Vector(x - p.x, y - p.y, z - p.z);
 }
+
+float Point::operator[](const int i) const
+{
+    if(i == 0) return x;
+    else if(i == 1) return y;
+    else if(i == 2) return z;
+
+    else 
+    {
+        printf("Point has no member of index %i!", i);
+        return NAN;
+    }
+
+}

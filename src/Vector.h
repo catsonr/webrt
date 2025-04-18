@@ -1,6 +1,7 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 
+#include <stdio.h>
 #include <cassert>
 #include <math.h>
 
@@ -39,6 +40,9 @@ public:
     
     // inversion
     Vector operator-() const;
+    
+    // array access
+    float operator[](const int i) const;
 };
 
 // global functions that use only vectors

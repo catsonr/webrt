@@ -2,15 +2,15 @@
 #define CAMERA_H
 
 #include "globals.h"
-#include "Vector.h"
-#include "Point.h"
+#include "Ray.h"
+#include "Sampler.h"
 
 class Camera
 {
 public:
     Camera();
 
-    virtual float generateRay() const = 0;
+    virtual float generateRay(const Sample& sample, Ray* ray) const = 0;
 
 protected:
     Point position;

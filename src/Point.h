@@ -15,6 +15,8 @@ public:
     Point operator-(const Vector& v) const;
     Point& operator-=(const Vector& v);
     Vector operator-(const Point& p) const;
+    
+    float operator[](const int i) const;
 
     float x;
     float y;

@@ -87,3 +87,17 @@ Vector Vector::operator-() const
 {
     return Vector(-x, -y, -z);
 }
+
+// array access operator overload
+float Vector::operator[](const int i) const
+{
+    if(i == 0) return x;
+    else if(i == 1) return y;
+    else if(i == 2) return z;
+
+    else 
+    {
+        printf("Vector has no member of index %i!", i);
+        return NAN;
+    }
+}
