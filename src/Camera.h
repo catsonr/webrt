@@ -5,6 +5,8 @@
 #include "Ray.h"
 #include "Sample.h"
 
+class Sample;
+
 class Camera
 {
 public:

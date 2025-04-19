@@ -9,6 +9,7 @@
 #define GEOMETRICPRIMITIVE_H
 
 #include "Primitive.h"
+#include "Intersection.h"
 
 #include <memory>
 

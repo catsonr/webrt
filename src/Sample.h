@@ -5,11 +5,20 @@
 #ifndef SAMPLE_H
 #define SAMPLE_H
 
+#include "Integrator.h"
+
+class SurfaceIntegrator;
+class VolumeIntegrator;
+
 struct Sample
 {
+    /* PUBLIC MEMBERS */
     float imageX, imageY;
     float lensU, lensV;
     float time;
+    
+    /* CONSTRUCTORS */
+    Sample(SurfaceIntegrator* surf, VolumeIntegrator* vol, const Scene* scene);
 };
 
 class Sampler

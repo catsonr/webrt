@@ -10,6 +10,8 @@ class Shape;
 
 class DifferentialGeometry
 {
+public:
+    /* CONSTRUCTORS */
     DifferentialGeometry() :
         u(0.0f),
         v(0.0f),
@@ -21,12 +23,19 @@ class DifferentialGeometry
             float uu, float vv, const Shape* sh
     );
 
+    /* PUBLIC MEMBERS */
     Point p;
     Normal nn;
     float u, v;
     const Shape* shape;
     Vector dpdu, dpdv;
     Vector dndu, dndv;
+    
+    mutable Vector dpdx, dpdy;
+    mutable float dudx, dvdx, dudy, dvdy;
+    
+    /* PUBLIC METHODS */
+    void computeDifferentials(const RayDifferential& ray) const;
 };
 
 #endif

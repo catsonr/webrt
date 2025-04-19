@@ -72,6 +72,38 @@ public:
         
         return *this;
     }
+    inline Spectrum operator*(const Spectrum& s2)
+    {
+        Spectrum ret = *this;
+
+        for(int i = 0; i < rt::SPECTRUM_COLORSAMPLES; i++)
+            ret.c[i] *= s2.c[i];
+        
+        return ret;
+    }
+    inline Spectrum& operator*=(const Spectrum& s2)
+    {
+        for(int i = 0; i < rt::SPECTRUM_COLORSAMPLES; i++)
+            c[i] *= s2.c[i];
+        
+        return *this;
+    }
+    inline Spectrum operator/(const Spectrum& s2)
+    {
+        Spectrum ret = *this;
+
+        for(int i = 0; i < rt::SPECTRUM_COLORSAMPLES; i++)
+            ret.c[i] /= s2.c[i];
+        
+        return ret;
+    }
+    inline Spectrum& operator/=(const Spectrum& s2)
+    {
+        for(int i = 0; i < rt::SPECTRUM_COLORSAMPLES; i++)
+            c[i] /= s2.c[i];
+        
+        return *this;
+    }
     inline bool operator==(const Spectrum& s2) const
     {
         for(int i = 0; i < rt::SPECTRUM_COLORSAMPLES; i++)

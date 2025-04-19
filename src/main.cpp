@@ -16,7 +16,6 @@ SDL_Surface* init()
     return screen;
 }
 
-
 int main(int argc, char **argv)
 {
     // create SDL screen to draw on

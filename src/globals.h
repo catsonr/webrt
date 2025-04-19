@@ -97,6 +97,20 @@ namespace rt
         
         return (p < 0.0f) ? p + TWOPI : p;
     }
+    
+    inline bool solveLinearSystem2x2(const float A[2][2], const float B[2], float x[2])
+    {
+        float det = A[0][0] * A[1][1] - A[0][1] * A[1][0];
+        
+        if(fabsf(det) < 1e-5f)
+            return false;
+        
+        float det_inv = 1.0f / det;
+        x[0] = (A[1][0] * B[0] - A[0][1] * B[1]) * det_inv;
+        x[1] = (A[0][0] * B[1] - A[1][0] * B[0]) * det_inv;
+        
+        return true;
+    }
 } // rt
 
 #endif

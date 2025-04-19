@@ -20,29 +20,12 @@ struct VisibilityTester
     Ray r;
     
     /* PUBLIC FUNCTIONS */
-    void setSegment(const Point& p1, const Point& p2)
-    {
-        r = Ray(p1, p2 - p1, rt::RAY_EPSILON, 1.0f - rt::RAY_EPSILON);
-    }
-
-    void setRay(const Point& p, const Vector& w)
-    {
-        r = Ray(p, w, rt::RAY_EPSILON);
-    }
+    void setSegment(const Point& p1, const Point& p2);
+    void setRay(const Point& p, const Vector& w);
     
-    /*
-    bool unoccluded(const Scene* scene) const
-    {
-        return !scene->intersectP(r);
-    }
-    */
+    bool unoccluded(const Scene* scene) const;
     
-    /*
-    Spectrum transmittance(const Scene* scene) const
-    {
-        return scene->transmittance(r);
-    }
-    */
+    Spectrum transmittance(const Scene* scene) const;
 };
 
 class Light
@@ -61,6 +44,10 @@ public:
     /* VIRTUAL PUBLIC FUNCTIONS */
     virtual Spectrum sample_L(const Point& p, Vector* wi, VisibilityTester* vis) const = 0;
     virtual Spectrum power(const Scene* scene) const = 0;
+    virtual Spectrum Le(const RayDifferential&) const
+    {
+        return Spectrum(0.0f);
+    }
     virtual bool isDeltaLight() const = 0;
 };
 

@@ -55,9 +55,36 @@ public:
         return NAN;
     }
     
+    virtual Point sample(float u1, float u2, Normal *Ns) const {
+        printf("unimplemented Shape::sample() method called!");
+        return Point();
+    }
+    
     // members
     Transform object_to_world, world_to_object;
     bool reverseOrientation, transformSwapsHandedness;
+};
+
+class ShapeSet : public Shape
+{
+public:
+    /* PUBLIC METHODS */
+    Point sample(float u1, float u2, Normal* Ns) const
+    {
+        float ls = (float)rand() / (float)rand(); // in future, use pbrt RandomFloat()
+        int sn;
+
+        for(sn = 0; sn < shapes.size() -1; sn++)
+            if(ls < areaCDF[sn]) 
+                break;
+        
+        return shapes[sn]->sample(u1, u2, Ns);
+    }
+
+private:
+    std::vector<std::shared_ptr<Shape>> shapes;
+    float area;
+    std::vector<float> areaCDF;
 };
 
 #endif
