@@ -17,6 +17,8 @@ namespace rt
     constexpr float ONE_OVER_PI = 0.31830988618379067154f;
     constexpr float ONE_OVER_TWOPI = 0.15915494309189533577f;
     
+    constexpr float RAY_EPSILON = 1e-3f;
+
     constexpr int SPECTRUM_COLORSAMPLES = 3;
 
     // GLOBAL INLINES
