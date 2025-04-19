@@ -7,7 +7,7 @@ class Ray
 {
     public:
         Ray();
-        Ray(Point o, Vector d);
+        Ray(Point origin, Vector direction);
         
         Point operator()(float t) const;
         
@@ -15,6 +15,27 @@ class Ray
 
         Point o;
         Vector d;
+};
+
+class RayDifferential : public Ray
+{
+public:
+    bool hasDifferentials;
+    Ray rx, ry;
+
+    RayDifferential() :
+        hasDifferentials(false)
+    {}
+    RayDifferential(const Point& origin, const Vector& direction) :
+        Ray(origin, direction),
+        hasDifferentials(false)
+    {}
+    explicit RayDifferential(const Ray& ray) :
+        Ray(ray),
+        hasDifferentials(false)
+    {}
+
+private:
 };
 
 #endif

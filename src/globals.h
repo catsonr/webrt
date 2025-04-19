@@ -10,6 +10,7 @@ namespace rt
     // GLOBAL VARIABLES
     constexpr int CANVAS_WIDTH = 800;
     constexpr int CANVAS_HEIGHT = 600;
+    constexpr float aspectRatio = CANVAS_HEIGHT / CANVAS_WIDTH;
 
     constexpr float PI = 3.14159265358979323846f;
     constexpr float TWOPI = 6.283185482025146484375f;

@@ -1,7 +1,7 @@
 #ifndef FILM_H
 #define FILM_H
 
-#include "Sampler.h"
+#include "Sample.h"
 #include "Ray.h"
 #include "Spectrum.h"
 

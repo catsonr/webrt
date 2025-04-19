@@ -3,7 +3,7 @@
 
 #include "globals.h"
 #include "Ray.h"
-#include "Sampler.h"
+#include "Sample.h"
 
 class Camera
 {
